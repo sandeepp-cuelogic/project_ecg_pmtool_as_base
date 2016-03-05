@@ -7,15 +7,17 @@
  * @license LGPL v3 license <http://www.gnu.org/licenses/lgpl>
  */
 
-namespace PivotalTrackerV5;
+#namespace PivotalTrackerV5;
 
+//include_once("./../../app_constants.php");
+include_once(APP_BASE_PATH ."/vendor/ptv5/Rest/Client.php");
 /**
  * Simple Pivotal Tracker api client.
  *
  * This class is loosely based on the code from Joel Dare's PHP Pivotal Tracker
  * Class: https://github.com/codazoda/PHP-Pivotal-Tracker-Class
  */
-class Client
+class PTClient
 {
     /**
      * Base url for the PivotalTracker service api.
@@ -42,7 +44,8 @@ class Client
      */
     public function __construct( $apiKey, $project )
     {
-        $this->client = new Rest\Client( self::API_URL );
+        //$this->client = new Rest\Client( self::API_URL );
+        $this->client = new RestClient( self::API_URL );
         $this->client->addHeader( 'Content-type', 'application/json' );
         $this->client->addHeader( 'X-TrackerToken',  $apiKey );
         $this->project = $project;

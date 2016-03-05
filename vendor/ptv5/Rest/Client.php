@@ -6,8 +6,8 @@
  * @copyright Copyright (c) 2012 Manuel Pichler
  * @license LGPL v3 license <http://www.gnu.org/licenses/lgpl>
  */
-
-namespace PivotalTrackerV5\Rest;
+//include_once("../../../../app_constants.php";
+#namespace PivotalTrackerV5\Rest;
 
 /**
  * Helper class that provides some basic REST functionality.
@@ -25,7 +25,7 @@ namespace PivotalTrackerV5\Rest;
  * The ctor of this class expects the remote REST server as argument. This
  * includes host/ip, port and protocol.
  */
-class Client
+class RestClient
 {
     /**
      * Wrapped HTTP request methods.
