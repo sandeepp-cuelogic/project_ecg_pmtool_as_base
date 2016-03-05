@@ -9,8 +9,8 @@
 
 #namespace PivotalTrackerV5;
 
-//include_once("./../../app_constants.php");
-include_once(APP_BASE_PATH ."/vendor/ptv5/Rest/Client.php");
+
+include_once(APP_BASE_PATH ."helpers/RestClientHelper.php");
 /**
  * Simple Pivotal Tracker api client.
  *
@@ -20,7 +20,7 @@ include_once(APP_BASE_PATH ."/vendor/ptv5/Rest/Client.php");
 class PTClient
 {
     /**
-     * Base url for the PivotalTracker service api.
+     * Base url for the PivotalTracker service api.5
      */
     const API_URL = 'https://www.pivotaltracker.com/services/v5';
 
@@ -140,5 +140,31 @@ class PTClient
 
     }
 
-     
+    /**
+     * Returns a detail about current project for the currently authenticated user.
+     *
+     * @return object
+     */
+    public function getProjectDetail()
+    {
+        return json_decode(
+            $this->client->get(
+                "/projects/{$this->project}"
+            )
+        );
+    }
+
+    /**
+     * Returns a detail about current project iteration for the currently authenticated user.
+     *
+     * @return object
+     */
+    public function getIterationDetail($iteration, $filter="")
+    {
+        return json_decode(
+            $this->client->get(
+                "/projects/{$this->project}/iterations/$iteration"
+            )
+        );
+    }     
 }
