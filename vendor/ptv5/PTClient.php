@@ -10,7 +10,7 @@
 #namespace PivotalTrackerV5;
 
 
-include_once(APP_BASE_PATH ."helpers/RestClientHelper.php");
+include_once(APP_BASE_PATH ."/helpers/RestClientHelper.php");
 /**
  * Simple Pivotal Tracker api client.
  *
@@ -145,7 +145,7 @@ class PTClient
      *
      * @return object
      */
-    public function getProjectDetail()
+    public function getProjectDetails()
     {
         return json_decode(
             $this->client->get(
@@ -159,7 +159,7 @@ class PTClient
      *
      * @return object
      */
-    public function getIterationDetail($iteration, $filter="")
+    public function getIterationDetails($iteration, $filter="")
     {
         return json_decode(
             $this->client->get(
