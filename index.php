@@ -23,6 +23,43 @@
 	}
   //Pie chart data
   $strPieChartJson = $obj->getCurrentIterationStoriesStatusDataForPieChart();
+  $strBurnDownChartRawData = $obj->getCurrentIterationStoriesStatusDataForBDChart();
+
+  print '<pre>';
+  if($strBurnDownChartRawData) {
+    $arrBurnDownChartRawData = (explode(",",$strBurnDownChartRawData));
+    /* burndown sorting */
+
+    $arr_days_rec = array();
+
+    if(is_array($arrBurnDownChartRawData) && count($arrBurnDownChartRawData) > 0) {
+      foreach ($arrBurnDownChartRawData as $burn_key => $burn_val) {
+        $burn_val = trim($burn_val, '[{"');
+        $burn_val = trim($burn_val, '}');
+        $burn_val = trim($burn_val, '}]');
+
+        $arr_burn_val = explode('":',$burn_val);      
+        $burn_time_stamp = strtotime(date('Y-m-d', strtotime($arr_burn_val[0]))); 
+
+           
+
+        $arr_days_rec[$burn_time_stamp] = @((int)($arr_days_rec[$burn_time_stamp]) + $arr_burn_val[1]);      
+      }  
+
+      if(count($arr_days_rec) > 0){         
+        ksort($arr_days_rec);        
+        $int_key = 0;
+        $arr_final_burn = array();
+        foreach ($arr_days_rec as $day_key => $day_val) { 
+          $arr_final_burn[] = "{'x':".$int_key.",'y':".$day_val."}";
+          $int_key++;
+        }
+        
+      }
+    }
+  }
+
+  /* END - burndown sorting */
 
 ?>
 
@@ -52,7 +89,7 @@
               {
                 retData.push({  y: pieChartData.inprogress, name: "In Progress", legendMarkerType: "circle"});
               }
-              alert (retData);
+              
               return retData;
             }
             // Pie Chart Data Building

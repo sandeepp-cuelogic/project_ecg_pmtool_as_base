@@ -15,7 +15,7 @@ class PivotalTrackerHelper extends PMToolBase
 	private $_current_iter_completed = 0;
 	private $_current_iter_inprogress = 0;
 	private $_current_iter_unfinished = 0;
-
+	private $_raw_burndown_data = null;
 	function __construct()
 	{
 		$this->objPT = new PTClient(PM_TOOL_API_KEY, PM_TOOL_PROJECT_ID);
@@ -84,6 +84,13 @@ class PivotalTrackerHelper extends PMToolBase
 		$json_data = json_encode($pieChartData);
 		
 		return $json_data;
+	}
+
+	public function processCurrentIterationStoriesAndGenerateBurnDownData()
+	{
+				
+		$json_data = json_encode($this->_raw_burndown_data);
+		return $json_data;
 	}	
 
 	public function processCurrentIterationAndGenerateRYGStatus()
@@ -95,6 +102,8 @@ class PivotalTrackerHelper extends PMToolBase
 		$completed_hours = 0;
 		$inprogress_hours = 0;
 		
+		$burnDownChartData = array(); 
+
 		foreach ($currentIterationDetails->stories as $story)
 		{
 			if(isset($story->estimate))
@@ -104,11 +113,14 @@ class PivotalTrackerHelper extends PMToolBase
 				if ($story->current_state == "accepted" || $story->current_state == "finished" || $story->current_state == "delivered")
 				{
 					$completed_hours = $completed_hours + $story->estimate;
+					array_push($burnDownChartData, array($story->updated_at =>  $story->estimate));
 				}elseif ($story->current_state == "started") {
 					$inprogress_hours = $inprogress_hours + $story->estimate;
 				}
-			}
+			}			
 		}
+
+		$this->_raw_burndown_data = $burnDownChartData;
 
 		$this->_current_iter_completed = $completed_hours;
 		$this->_current_iter_inprogress = $inprogress_hours;

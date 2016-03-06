@@ -76,5 +76,10 @@ class PMToolHelper
 		$json_data =$this->_vendorPMTool->processCurrentIterationStoriesAndGeneratePieData();
 		return $json_data;
 	}
+
+	public function getCurrentIterationStoriesStatusDataForBDChart(){
+		$json_data =$this->_vendorPMTool->processCurrentIterationStoriesAndGenerateBurnDownData();
+		return $json_data;
+	}
 }
 ?>
