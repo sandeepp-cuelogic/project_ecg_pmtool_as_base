@@ -1,3 +1,7 @@
+body{
+	/*background: url(/static/img/linbox-bg.png) ;
+	z-index: -1;*/
+}
 .chart {	
 	font-family: 'Arial';
 	font-size: 13px;
@@ -16,8 +20,8 @@
 	stroke-width:2;
 }
 .chart > path.ideal {
-	 stroke: #eee;
-	 stroke-width:5;
+	 stroke: #000;
+	 stroke-width:2;
 	 stroke-linecap:round;
 }
 .chart > path.actual {
@@ -42,7 +46,7 @@ body {
 .intro h1 {
 	font: 200 1.7em Segoe UI, "Segoe UI Light", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
 	font-weight: 200;
-  color: #666;
+  color: #0000FF;
 }
 .intro p {
 	max-width: 600px;
@@ -54,7 +58,7 @@ body {
 .prjhealth{
 	height: 70px; width: 100%;	
 }
-.hgreen{
+/*.hgreen{
 	background-color: #07a331;
 }
 .hred{
@@ -62,7 +66,7 @@ body {
 }
 .hamber{
 	background-color: #ffbf00;
-}
+}*/
 /*Pie Chart*/
 .arc text {
   font: 10px sans-serif;
@@ -72,3 +76,52 @@ body {
 .arc path {
   stroke: #fff;
 }
+
+/* ECG css */
+svg.clsSvg{
+    /*background-color: black;*/
+    width: 200px;
+}
+path {
+    stroke: orange;
+    fill: none;
+    stroke-width: 1;
+}
+.path1 {
+  stroke-dasharray: 170, 180;
+  animation: pulse 2s infinite linear;
+}
+
+.hgreen{
+	stroke: #07a331;
+}
+.hred{
+	stroke: #ee0c0c;
+}
+.hamber{
+	stroke: #ffbf00;
+}
+
+@keyframes pulse {
+  0% {
+    stroke-dashoffset: 350;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.path2 {
+  stroke-dasharray: 170, 180;
+  animation: pulse2 2s infinite linear;
+}
+
+@keyframes pulse2 {
+  0% {
+    stroke-dashoffset: 525;
+  }
+  100% {
+    stroke-dashoffset: 175;
+  }
+}
+/* END - ECG css */
