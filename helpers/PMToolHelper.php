@@ -7,7 +7,7 @@
  * 
  */
 include_once(APP_BASE_PATH . "/constants/pmToolConstants.php");
-include_once(APP_BASE_PATH . "/vendor/ptv5/Client.php");
+include_once(APP_BASE_PATH . "/vendor/ptv5/PTClient.php");
 include_once(APP_BASE_PATH . "/pmtools/PivotalTrackerHelper.php");
 //namespace ProjectECG\Helper;
 
@@ -19,7 +19,7 @@ include_once(APP_BASE_PATH . "/pmtools/PivotalTrackerHelper.php");
 class PMToolHelper
 {
 
-	private $_selectedPMTool;
+	public $_selectedPMTool=null;
 
 	private $_vendorPMTool;
 
@@ -34,15 +34,15 @@ class PMToolHelper
 	function __construct($pmTool)
 	{
 		$this->_selectedPMTool = $pmTool;
-		instantiatePMHelperObject();
+		$this->instantiatePMHelperObject();
 	}
 
 	private function instantiatePMHelperObject()
 	{
-		switch ($this->$_selectedPMTool)
+		switch ($this->_selectedPMTool)
 		{
 			case PM_TOOL_PIVOTALTRACKER:
-				$this->_vendorPMTool = new PTClient(PM_TOOL_API_KEY, PM_TOOL_PROJECT_ID);
+				$this->_vendorPMTool = new PivotalTrackerHelper();
 				break;
 			case PM_TOOL_ATL_JIRA:
 				
@@ -53,17 +53,23 @@ class PMToolHelper
 	private function processCurrentIterationAndGenerateRYGStatus()
 	{
 		$iterationStatus = $this->_vendorPMTool->processCurrentIterationAndGenerateRYGStatus();
+		
 		$this->publishStatusToAWSIoT("", $iterationStatus);
+		return $iterationStatus;
 	}
 
-	private function publishStatusToAWSIoT($iotTopic, $status)()
+	private function publishStatusToAWSIoT($iotTopic, $status)
 	{
-		$output = shell_exec('node ". APP_BASE_PATH ."/updateiothealth.js'. (($status=="Y")?"warning":(($status=="G")?"success":"error");
+		//$output = shell_exec('node ". APP_BASE_PATH ."/updateiothealth.js'. (($status=="Y")?"warning":(($status=="G")?"success":"error");
+		
+		$str_command = "nodejs ". APP_BASE_PATH ."/updateiothealth.js ". (($status=="Y")?"warning":(($status=="G")?"success":"error"));
+		$output = shell_exec($str_command);	
+		return true;	
 	}
 
-	public function updateCurrentIterationHealth($projectIdentifier)
+	public function updateCurrentIterationHealth()
 	{
-		$
+		return $this->processCurrentIterationAndGenerateRYGStatus(PM_TOOL_PROJECT_ID);
 	} 
 }
 ?>
