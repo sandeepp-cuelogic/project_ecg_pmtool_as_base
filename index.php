@@ -8,7 +8,6 @@
 	include_once("./pmtools/PivotalTrackerHelper.php");
 	include_once("./helpers/PMToolHelper.php");
 
-	
 
 	//$obj = new PivotalTrackerHelper();
 	$obj = new PMToolHelper(PM_TOOL_PIVOTALTRACKER);
@@ -22,17 +21,23 @@
 	}else{
 		$styleProjectHealth= "prjhealth hred";
 	}
+  //Pie chart data
+  $strPieChartJson = $obj->getCurrentIterationStoriesStatusDataForPieChart();
+  echo $strPieChartJson;
+
+  
+
+
 ?>
 
 
   <head>
     <meta charset="UTF-8">
     <title>Project ECG</title>
-    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="static/css/style.css">
   </head>
 
-  <body>
-  		<? echo $setProjectHealth; ?>
+  <body>  		
       <div class="intro">
          <h1>Project Health ECG</h1>
       </div>
@@ -47,7 +52,7 @@
       <svg id="visualisation" width="1000" height="500" class="chart"></svg>
       <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
       <script src='http://d3js.org/d3.v3.min.js'></script>
-      <script src="/static/js/index.js"></script>
+      <script src="static/js/index.js"></script>
   </body>
 </html>
 
