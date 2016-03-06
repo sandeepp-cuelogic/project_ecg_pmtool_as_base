@@ -43,13 +43,13 @@ function initChart() {
 	];
 
 	var svg = d3.select("#visualisation"),
-		width = 1000,
-		height = 500,
+		width = 500,
+		height = 300,
 		margins = {
-			top: 80,
-			right: 50,
-			bottom: 80,
-			left: 80
+			top: 50,
+			right: 10,
+			bottom: 50,
+			left: 70
 		},
 		xMin = d3.min(lineDataActual, function (d) {			
 			return d.x;
@@ -169,8 +169,7 @@ function initChart() {
         ])                  
     .enter().append("stop")         
         .attr("offset", function(d) { return d.offset; })   
-        .attr("stop-color", function(d) { return d.color; });   
-        	
+        .attr("stop-color", function(d) { return d.color; });   	
 	/*svg.append("text")
 		.attr("class", "x label")
 		.attr("text-anchor", "end")

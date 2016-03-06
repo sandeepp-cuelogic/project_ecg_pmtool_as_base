@@ -63,7 +63,7 @@ class PMToolHelper
 		//$output = shell_exec('node ". APP_BASE_PATH ."/updateiothealth.js'. (($status=="Y")?"warning":(($status=="G")?"success":"error");
 		
 		$str_command = "nodejs ". APP_BASE_PATH ."/updateiothealth.js ". (($status=="Y")?"warning":(($status=="G")?"success":"error"));
-		$output = shell_exec($str_command);	
+		//$output = shell_exec($str_command);	
 		return true;	
 	}
 
@@ -71,5 +71,10 @@ class PMToolHelper
 	{
 		return $this->processCurrentIterationAndGenerateRYGStatus(PM_TOOL_PROJECT_ID);
 	} 
+
+	public function getCurrentIterationStoriesStatusDataForPieChart(){
+		$json_data =$this->_vendorPMTool->processCurrentIterationStoriesAndGeneratePieData();
+		return $json_data;
+	}
 }
 ?>
