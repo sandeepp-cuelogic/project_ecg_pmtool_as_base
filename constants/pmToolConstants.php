@@ -1,0 +1,20 @@
+<?php
+
+	// PM Tool
+	define("PM_TOOL_PIVOTALTRACKER", 1001);
+	define("PM_TOOL_ATL_JIRA", 1002);
+
+	// PM Tool Access Details
+	define("PM_TOOL_API_KEY", "4d7fcc93e974ab092b626e2e2854417d");
+	define("PM_TOOL_PROJECT_ID","1443874");
+
+	//Iteration Health Verdict Constants
+	define("PM_TOOL_ITERATION_TIME_ELAPSED_LAP1",30);
+	define("PM_TOOL_ITERATION_TIME_ELAPSED_LAP2",70);
+	define("PM_TOOL_ITERATION_TIME_ELAPSED_LAP3",100);
+	define("PM_TOOL_ITERATION_WORK_DONE_LAP1",70);
+	define("PM_TOOL_ITERATION_WORK_DONE_LAP2",90);
+	define("PM_TOOL_ITERATION_WORK_DONE_LAP3",100);
+
+
+?>
